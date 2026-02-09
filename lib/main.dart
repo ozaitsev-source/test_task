@@ -51,7 +51,7 @@ Widget build(BuildContext context){
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
         const SizedBox(height: 50),
-        _button('-pi', -pi/18),
+        _button('-10°', -pi/18),
         ElevatedButton(onPressed: (){
           setState(() {
             _rotationAngle = 0;
@@ -59,7 +59,7 @@ Widget build(BuildContext context){
         },
         child:Text('0'),
         ),
-        _button('pi', pi/18),        
+        _button('+10°', pi/18),        
           ]
         ),
         ),
@@ -97,7 +97,7 @@ Widget _button(String text, double step){
     setState((){
       _rotationAngle += step;
     });
-    _rotationAngle = (_rotationAngle + step).clamp(-pi, pi);// без clamp методу, коли значення виходило за пі ломалось все
+    _rotationAngle = (_rotationAngle + step).clamp(-pi, pi);
   },
   child:Text(text),
   );
