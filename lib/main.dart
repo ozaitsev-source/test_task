@@ -97,7 +97,7 @@ Widget _button(String text, double step){
     setState((){
       _rotationAngle += step;
     });
-    _rotationAngle = (_rotationAngle + step).clamp(-pi, pi);
+    _rotationAngle = (_rotationAngle).clamp(-pi, pi);
   },
   child:Text(text),
   );
