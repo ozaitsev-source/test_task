@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 
 import 'package:my_test_app/widgets/figures.dart';
@@ -19,15 +18,16 @@ class _ControlBarState extends State<ControlBar> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        // Кнопки
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(onPressed: () {}, child: const Text('Button 1')),
-            ElevatedButton(onPressed: () {}, child: const Text('Button 2')),
-            ElevatedButton(onPressed: () {}, child: const Text('Button 3')),
+            ElevatedButton(onPressed: () {}, child: const Text('Кнопка 1')),
+            ElevatedButton(onPressed: () {}, child: const Text('Кнопка 2')),
+            ElevatedButton(onPressed: () {}, child: const Text('Кнопка 3')),
           ],
         ),
-
+        // Слайдер
         Slider(
           value: _rotationAngle,
           min: -math.pi,
@@ -38,6 +38,7 @@ class _ControlBarState extends State<ControlBar> {
             });
           },
         ),
+        // Фігури
         Figures(angle: _rotationAngle),
       ],
     );
