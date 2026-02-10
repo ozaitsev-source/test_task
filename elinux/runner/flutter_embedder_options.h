@@ -11,9 +11,11 @@
 
 #include "command_options.h"
 
-class FlutterEmbedderOptions {
- public:
-  FlutterEmbedderOptions() {
+class FlutterEmbedderOptions
+{
+public:
+  FlutterEmbedderOptions()
+  {
     options_.AddString("bundle", "b", "Path to Flutter project bundle",
                        "./bundle", true);
     options_.AddWithoutValue("no-cursor", "n", "No mouse cursor/pointer",
@@ -42,7 +44,7 @@ class FlutterEmbedderOptions {
                              false);
     options_.AddInt("width", "w", "Window width", 1280, false);
     options_.AddInt("height", "h", "Window height", 720, false);
-#else  // FLUTTER_TARGET_BACKEND_WAYLAND
+#else // FLUTTER_TARGET_BACKEND_WAYLAND
     options_.AddString("title", "t", "Window title", "Flutter", false);
     options_.AddString("app-id", "a", "XDG App ID", "dev.flutter.elinux",
                        false);
@@ -58,8 +60,10 @@ class FlutterEmbedderOptions {
   }
   ~FlutterEmbedderOptions() = default;
 
-  bool Parse(int argc, char** argv) {
-    if (!options_.Parse(argc, argv)) {
+  bool Parse(int argc, char **argv)
+  {
+    if (!options_.Parse(argc, argv))
+    {
       std::cerr << options_.GetError() << std::endl;
       std::cout << options_.ShowHelp();
       return false;
@@ -67,34 +71,39 @@ class FlutterEmbedderOptions {
 
     bundle_path_ = options_.GetValue<std::string>("bundle");
     use_mouse_cursor_ = !options_.Exist("no-cursor");
-    if (options_.Exist("rotation")) {
-      switch (options_.GetValue<int>("rotation")) {
-        case 90:
-          window_view_rotation_ =
-              flutter::FlutterViewController::ViewRotation::kRotation_90;
-          break;
-        case 180:
-          window_view_rotation_ =
-              flutter::FlutterViewController::ViewRotation::kRotation_180;
-          break;
-        case 270:
-          window_view_rotation_ =
-              flutter::FlutterViewController::ViewRotation::kRotation_270;
-          break;
-        default:
-          window_view_rotation_ =
-              flutter::FlutterViewController::ViewRotation::kRotation_0;
-          break;
+    if (options_.Exist("rotation"))
+    {
+      switch (options_.GetValue<int>("rotation"))
+      {
+      case 90:
+        window_view_rotation_ =
+            flutter::FlutterViewController::ViewRotation::kRotation_90;
+        break;
+      case 180:
+        window_view_rotation_ =
+            flutter::FlutterViewController::ViewRotation::kRotation_180;
+        break;
+      case 270:
+        window_view_rotation_ =
+            flutter::FlutterViewController::ViewRotation::kRotation_270;
+        break;
+      default:
+        window_view_rotation_ =
+            flutter::FlutterViewController::ViewRotation::kRotation_0;
+        break;
       }
     }
 
     text_scale_factor_ = options_.GetValue<double>("text-scaling-factor");
     enable_high_contrast_ = options_.Exist("enable-high-contrast");
 
-    if (options_.Exist("force-scale-factor")) {
+    if (options_.Exist("force-scale-factor"))
+    {
       is_force_scale_factor_ = true;
       scale_factor_ = options_.GetValue<double>("force-scale-factor");
-    } else {
+    }
+    else
+    {
       is_force_scale_factor_ = false;
       scale_factor_ = 1.0;
     }
@@ -116,7 +125,7 @@ class FlutterEmbedderOptions {
             : flutter::FlutterViewController::ViewMode::kNormal;
     window_width_ = options_.GetValue<int>("width");
     window_height_ = options_.GetValue<int>("height");
-#else  // FLUTTER_TARGET_BACKEND_WAYLAND
+#else // FLUTTER_TARGET_BACKEND_WAYLAND
     window_title_ = options_.GetValue<std::string>("title");
     window_app_id_ = options_.GetValue<std::string>("app-id");
     use_onscreen_keyboard_ = options_.Exist("onscreen-keyboard");
@@ -132,53 +141,68 @@ class FlutterEmbedderOptions {
     return true;
   }
 
-  std::string BundlePath() const {
+  std::string BundlePath() const
+  {
     return bundle_path_;
   }
-  std::string WindowTitle() const {
+  std::string WindowTitle() const
+  {
     return window_title_;
   }
-  std::string WindowAppID() const {
+  std::string WindowAppID() const
+  {
     return window_app_id_;
   }
-  bool IsUseMouseCursor() const {
+  bool IsUseMouseCursor() const
+  {
     return use_mouse_cursor_;
   }
-  bool IsUseOnscreenKeyboard() const {
+  bool IsUseOnscreenKeyboard() const
+  {
     return use_onscreen_keyboard_;
   }
-  bool IsUseWindowDecoraation() const {
+  bool IsUseWindowDecoraation() const
+  {
     return use_window_decoration_;
   }
-  flutter::FlutterViewController::ViewMode WindowViewMode() const {
+  flutter::FlutterViewController::ViewMode WindowViewMode() const
+  {
     return window_view_mode_;
   }
-  int WindowWidth() const {
+  int WindowWidth() const
+  {
     return window_width_;
   }
-  int WindowHeight() const {
+  int WindowHeight() const
+  {
     return window_height_;
   }
-  flutter::FlutterViewController::ViewRotation WindowRotation() const {
+  flutter::FlutterViewController::ViewRotation WindowRotation() const
+  {
     return window_view_rotation_;
   }
-  double TextScaleFactor() const {
+  double TextScaleFactor() const
+  {
     return text_scale_factor_;
   }
-  bool EnableHighContrast() const {
+  bool EnableHighContrast() const
+  {
     return enable_high_contrast_;
   }
-  bool IsForceScaleFactor() const {
+  bool IsForceScaleFactor() const
+  {
     return is_force_scale_factor_;
   }
-  double ScaleFactor() const {
+  double ScaleFactor() const
+  {
     return scale_factor_;
   }
-  bool EnableVsync() const {
+  bool EnableVsync() const
+  {
     return enable_vsync_;
   }
 
- private:
+private:
   commandline::CommandOptions options_;
 
   std::string bundle_path_;
@@ -200,4 +224,4 @@ class FlutterEmbedderOptions {
   bool enable_vsync_;
 };
 
-#endif  // FLUTTER_EMBEDDER_OPTIONS_
+#endif // FLUTTER_EMBEDDER_OPTIONS_

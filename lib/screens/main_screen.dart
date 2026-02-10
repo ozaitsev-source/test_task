@@ -12,6 +12,6 @@ class TestTaskScreen extends StatefulWidget {
 class _TestTaskScreenState extends State<TestTaskScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Row(children: [const MainImage(), ControlBar()]));
+    return Scaffold(body: Row(children: [const MainImage(), Expanded(child: const ControlBar())]));
   }
 }
