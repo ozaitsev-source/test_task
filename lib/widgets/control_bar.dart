@@ -25,6 +25,11 @@ class ControlBar extends StatelessWidget {
           const SizedBox(height: 20),
           Expanded(
             child: BlocBuilder<TriangleRotationCubit, double>(
+              buildWhen: (previous, current) {
+                int previousDegrees = (previous * 180 / math.pi).round();
+                int currentDegrees = (current * 180 / math.pi).round();
+                return previousDegrees != currentDegrees;
+              },
               builder:
                   (context, rotationAngle) => Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
