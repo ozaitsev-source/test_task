@@ -13,10 +13,10 @@ class Figures extends StatelessWidget {
 class MyPainter extends CustomPainter {
   MyPainter(this.angle);
   final double angle;
-  final double offset = math.pi / 2;
+  final double angleOffset = math.pi / 2;
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
+    final center = size.center(Offset.zero);
     final radius = math.min(size.width, size.height) / 2;
     final radiusWithPadding = radius - 12;
     final circle =
@@ -35,30 +35,32 @@ class MyPainter extends CustomPainter {
           ..style = PaintingStyle.fill;
     final trianglePath =
         Path()
-          ..moveTo(radiusWithPadding * math.cos(-offset), radiusWithPadding * math.sin(-offset))
-          ..lineTo(radiusWithPadding * math.cos(math.pi * 2 / 3 - offset), radiusWithPadding * math.sin(math.pi * 2 / 3 - offset))
-          ..lineTo(radiusWithPadding * math.cos(math.pi * 4 / 3 - offset), radiusWithPadding * math.sin(math.pi * 4 / 3 - offset))
+          ..moveTo(radiusWithPadding * math.cos(-angleOffset), radiusWithPadding * math.sin(-angleOffset))
+          ..lineTo(radiusWithPadding * math.cos(math.pi * 2 / 3 - angleOffset), radiusWithPadding * math.sin(math.pi * 2 / 3 - angleOffset))
+          ..lineTo(radiusWithPadding * math.cos(math.pi * 4 / 3 - angleOffset), radiusWithPadding * math.sin(math.pi * 4 / 3 - angleOffset))
           ..close();
-    canvas.drawPath(trianglePath, triangle);
-    canvas.restore();
 
-    //   final triangle =
-    //       Paint()
-    //         ..color = Colors.green
-    //         ..style = PaintingStyle.fill;
-    //   final trianglePath =
-    //       Path()
-    //         ..moveTo(center.dx + radiusWithPadding * math.cos(angle - offset), center.dy + radiusWithPadding * math.sin(angle - offset))
-    //         ..lineTo(
-    //           center.dx + radiusWithPadding * math.cos(angle + math.pi * 2 / 3 - offset),
-    //           center.dy + radiusWithPadding * math.sin(angle + math.pi * 2 / 3 - offset),
-    //         )
-    //         ..lineTo(
-    //           center.dx + radiusWithPadding * math.cos(angle + math.pi * 4 / 3 - offset),
-    //           center.dy + radiusWithPadding * math.sin(angle + math.pi * 4 / 3 - offset),
-    //         )
-    //         ..close();
-    //   canvas.drawPath(trianglePath, triangle);
+    final triangleElse =
+        Paint()
+          ..color = Colors.red
+          ..style = PaintingStyle.fill;
+    final pathElse = Path();
+    for (int i = 0; i < 3; i++) {
+      final vertex = -angleOffset + (i * math.pi * 2 / 3);
+      final x = radius * math.cos(vertex);
+      final y = radius * math.sin(vertex);
+      if (i == 0) {
+        pathElse.moveTo(x, y);
+      } else {
+        pathElse.lineTo(x, y);
+      }
+    }
+    pathElse.close();
+
+    canvas.drawPath(pathElse, triangleElse);
+    canvas.drawPath(trianglePath, triangle);
+
+    canvas.restore();
   }
 
   @override
