@@ -10,10 +10,8 @@ class TestTaskScreen extends StatefulWidget {
 }
 
 class _TestTaskScreenState extends State<TestTaskScreen> {
-  double _rotationAngle = 0.0;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Row(children: [const MainImage(), Expanded(child: ControlBar())]));
+    return Scaffold(body: Row(children: [const MainImage(), ControlBar()]));
   }
 }

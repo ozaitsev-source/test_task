@@ -6,7 +6,7 @@ class Figures extends StatelessWidget {
   final double angle;
   @override
   Widget build(BuildContext context) {
-    return Container(child: CustomPaint(size: Size(200, 200), painter: MyPainter(angle)));
+    return Container(child: CustomPaint(painter: MyPainter(angle)));
   }
 }
 
