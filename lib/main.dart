@@ -7,5 +7,5 @@ import 'package:my_test_app/cubit/triangle_rotation_cubit.dart';
 
 void main() {
   debugRepaintRainbowEnabled = true;
-  runApp(MaterialApp(home: BlocProvider(create: (context) => TriangleRotationCubit(), child: const TestTaskScreen())));
+  runApp(MaterialApp(home: BlocProvider(create: (context) => TriangleRotationCubit(), child: const MainScreen())));
 }

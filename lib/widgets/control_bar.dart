@@ -14,15 +14,20 @@ class ControlBar extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Кнопки
           const SizedBox(height: 20),
+
           RepaintBoundary(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [setStep(context, '-10°', -math.pi / 18), setZero(context), setStep(context, '+10°', math.pi / 18)],
+              children: [
+                _buildStepButton(context, '-10°', -math.pi / 18),
+                _buildZeroButoon(context),
+                _buildStepButton(context, '+10°', math.pi / 18),
+              ],
             ),
           ),
           const SizedBox(height: 20),
+
           Expanded(
             child: BlocBuilder<TriangleRotationCubit, double>(
               buildWhen: (previous, current) {
@@ -34,7 +39,6 @@ class ControlBar extends StatelessWidget {
                   (context, rotationAngle) => Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Слайдер
                       RepaintBoundary(
                         child: Slider(
                           value: rotationAngle,
@@ -42,13 +46,12 @@ class ControlBar extends StatelessWidget {
                           max: math.pi,
                           onChanged: (value) {
                             context.read<TriangleRotationCubit>().setRotation(value);
-                            //  BlocProvider.of<TriangleRotationCubit>(context).setRotation(value); // Рекомендований метод?
                           },
                         ),
                       ),
                       Text('Current Degrees: ${(rotationAngle * 180 / math.pi).toStringAsFixed(2)}°'),
                       const Spacer(),
-                      // Фігури
+
                       Expanded(
                         child: AspectRatio(
                           aspectRatio: 1,
@@ -64,7 +67,7 @@ class ControlBar extends StatelessWidget {
     );
   }
 
-  Widget setStep(BuildContext context, String text, double step) {
+  Widget _buildStepButton(BuildContext context, String text, double step) {
     return ElevatedButton(
       onPressed: () {
         context.read<TriangleRotationCubit>().setStep(step);
@@ -73,7 +76,7 @@ class ControlBar extends StatelessWidget {
     );
   }
 
-  Widget setZero(BuildContext context) {
+  Widget _buildZeroButoon(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         context.read<TriangleRotationCubit>().setZero();
