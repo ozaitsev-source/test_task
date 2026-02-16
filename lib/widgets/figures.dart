@@ -25,8 +25,8 @@ class MyPainter extends CustomPainter {
         Paint()
           ..color = Colors.blue
           ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, radius, circle);
 
+    canvas.drawCircle(center, radius, circle);
     canvas.save();
     canvas.translate(center.dx, center.dy);
     canvas.rotate(angle);
@@ -42,6 +42,7 @@ class MyPainter extends CustomPainter {
       final y = radius * math.sin(vertex);
       if (i == 0) {
         trianglePath.moveTo(x, y);
+        canvas.drawCircle(Offset(x, y), 8, Paint()..color = Colors.red);
       } else {
         trianglePath.lineTo(x, y);
       }
