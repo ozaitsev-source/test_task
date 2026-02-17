@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'screens/main_screen.dart';
-import 'cubit/triangle_rotation_cubit.dart';
+import 'models/triangle_rotation_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

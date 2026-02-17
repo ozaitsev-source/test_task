@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math;
 
 import 'package:my_test_app/widgets/figures.dart';
-import 'package:my_test_app/cubit/triangle_rotation_cubit.dart';
+import 'package:my_test_app/models/triangle_rotation_cubit.dart';
+import 'package:my_test_app/utils/geometry.dart';
 
 class ControlBar extends StatefulWidget {
   const ControlBar({super.key});
@@ -13,7 +14,13 @@ class ControlBar extends StatefulWidget {
 }
 
 class ControlBarState extends State<ControlBar> {
-  double _sliderValue = 0;
+  @override
+  void initState() {
+    initState() {
+      super.initState();
+      context.read<TriangleRotationCubit>().openStream();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +52,13 @@ class ControlBarState extends State<ControlBar> {
                 child: BlocBuilder<TriangleRotationCubit, AngleState>(
                   builder: (context, state) {
                     return Slider(
-                      value: _sliderValue,
+                      value: state.angle,
                       min: -math.pi,
                       max: math.pi,
                       onChanged:
                           (!state.isManual)
                               ? null
                               : (value) {
-                                setState(() => _sliderValue = value);
                                 context.read<TriangleRotationCubit>().setAngle(value);
                               },
                     );
@@ -74,8 +80,9 @@ class ControlBarState extends State<ControlBar> {
         Expanded(
           child: BlocBuilder<TriangleRotationCubit, AngleState>(
             buildWhen: (previous, current) {
-              int previousDegrees = (previous.angle * 180 / math.pi).round();
-              int currentDegrees = (current.angle * 180 / math.pi).round();
+              int previousDegrees = (degrees(previous.angle)).round();
+              int currentDegrees = (degrees(current.angle)).round();
+              print('$currentDegrees');
               return previousDegrees != currentDegrees;
             },
             builder: (context, state) {

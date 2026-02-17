@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math;
 
-import 'package:my_test_app/services/udp_angle_service.dart';
+import 'package:my_test_app/io/udp_angle_service.dart';
 
 class AngleState extends Equatable {
   final double angle;
@@ -20,16 +20,14 @@ class AngleState extends Equatable {
 }
 
 class TriangleRotationCubit extends Cubit<AngleState> {
-  TriangleRotationCubit() : super(const AngleState(angle: 0, isManual: true)) {
-    _openStream();
-  }
+  TriangleRotationCubit() : super(const AngleState(angle: 0, isManual: true)) {}
 
   StreamSubscription<double>? _streamSubscription;
 
   Timer? _watchdogTimer;
 
-  Future<void> _openStream() async {
-    _streamSubscription ??= UdpAngleReader().angleUpdate.listen((value) {
+  Future<void> openStream() async {
+    _streamSubscription ??= UdpAngleReader().listen((value) {
       emit(state.copyWith(angle: value, isManual: false));
       _watchdogTimer?.cancel();
       _watchdogTimer = Timer(const Duration(milliseconds: 100), () {

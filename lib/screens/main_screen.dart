@@ -3,13 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:my_test_app/widgets/main_image.dart';
 import 'package:my_test_app/widgets/control_bar.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
