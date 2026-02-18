@@ -7,6 +7,8 @@ class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Row(children: [MainImage(), Expanded(child: ControlBar())]));
+    return Scaffold(
+      body: Row(children: [const AspectRatio(aspectRatio: 4 / 3, child: const MainImage()), Expanded(child: const ControlBar())]),
+    );
   }
 }
